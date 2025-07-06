@@ -1,0 +1,14 @@
+[Unit]
+Description=Sync Obsidian vault on login, logout, and shutdown
+After=network-online.target        # wait until Wi-Fi/ethernet is up (login case)
+Before=shutdown.target             # be sure we finish before network goes down
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+ExecStart=%h/.local/bin/obsidian-sync.sh
+
+[Install]
+# Space-separated list = create symlinks in BOTH places when you enable it
+WantedBy=default.target exit.target
+
